@@ -1,0 +1,4 @@
+# Perfil activation
+spring:
+  profiles:
+    active: ${APP_PROFILE:test}
