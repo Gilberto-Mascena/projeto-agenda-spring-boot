@@ -3,6 +3,8 @@ package br.com.mascenadev.projetoagendaspringboot.service;
 import br.com.mascenadev.projetoagendaspringboot.entities.Contato;
 import br.com.mascenadev.projetoagendaspringboot.exception.ContatoNaoEncontradoException;
 import br.com.mascenadev.projetoagendaspringboot.repository.ContatoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +19,8 @@ import java.util.Optional;
  * </p>
  */
 
+@Service
+
 public class ContatoService {
 
     private final ContatoRepository contatoRepository;
@@ -26,6 +30,7 @@ public class ContatoService {
      *
      * @param contatoRepository repositório para acesso aos dados de contatos
      */
+    @Autowired
     public ContatoService(ContatoRepository contatoRepository) {
         this.contatoRepository = contatoRepository;
     }
