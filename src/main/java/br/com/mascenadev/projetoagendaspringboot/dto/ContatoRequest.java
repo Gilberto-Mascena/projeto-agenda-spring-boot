@@ -10,6 +10,8 @@ import org.springframework.beans.BeanUtils;
  * <p>
  * Contém validações para garantir que os campos obrigatórios sejam informados e estejam em formato válido.
  * </p>
+ *
+ * @author Gilberto Dev
  */
 public class ContatoRequest {
 
