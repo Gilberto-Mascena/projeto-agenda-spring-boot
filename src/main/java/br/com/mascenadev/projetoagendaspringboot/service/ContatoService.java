@@ -60,22 +60,6 @@ public class ContatoService {
     }
 
     /**
-     * Exclui um contato com base no ID.
-     * <p>
-     * Se o contato não for encontrado, uma {@link ContatoNaoEncontradoException} será lançada.
-     * </p>
-     *
-     * @param id identificador do contato a ser excluído
-     * @throws ContatoNaoEncontradoException se o contato não existir
-     */
-    public void excluir(Long id) {
-        if (!contatoRepository.existsById(id)) {
-            throw new ContatoNaoEncontradoException(id);
-        }
-        contatoRepository.deleteById(id);
-    }
-
-    /**
      * Atualiza os dados de um contato existente.
      * <p>
      * Caso o contato não seja encontrado, uma {@link ContatoNaoEncontradoException} será lançada.
@@ -95,5 +79,21 @@ public class ContatoService {
                     return contatoRepository.save(contato);
                 })
                 .orElseThrow(() -> new ContatoNaoEncontradoException(id));
+    }
+
+    /**
+     * Exclui um contato com base no ID.
+     * <p>
+     * Se o contato não for encontrado, uma {@link ContatoNaoEncontradoException} será lançada.
+     * </p>
+     *
+     * @param id identificador do contato a ser excluído
+     * @throws ContatoNaoEncontradoException se o contato não existir
+     */
+    public void excluir(Long id) {
+        if (!contatoRepository.existsById(id)) {
+            throw new ContatoNaoEncontradoException(id);
+        }
+        contatoRepository.deleteById(id);
     }
 }
