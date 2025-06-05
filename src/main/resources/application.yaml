@@ -1,4 +1,11 @@
+# API configuration version
+projeto-agenda-spring-boot:
+  api:
+    version: v1
+
 # Perfil activation
 spring:
   profiles:
     active: ${APP_PROFILE:test}
+  jpa:
+    open-in-view: false
