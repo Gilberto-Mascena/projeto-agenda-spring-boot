@@ -3,8 +3,7 @@
 
 # Spring Boot Agenda Project
 
-#### This is a project for a simple contact agenda application developed with _Spring
-Boot_. The application allows you to perform basic CRUD operations (Create, Read, Update, Delete) to manage contacts.
+#### This is a project for a simple contact agenda application developed with _Spring Boot_. The application allows you to perform basic CRUD operations (Create, Read, Update, Delete) to manage contacts.
 
 ## Features
 
@@ -56,7 +55,7 @@ Boot_. The application allows you to perform basic CRUD operations (Create, Read
 
 ![postman](/docs/imgs/screenshot-postman.png)
 
-### Access the H2 Console\
+### Access the H2 Console
 
 H2 is configured to run in memory during testing, and the web console is available at:
 
