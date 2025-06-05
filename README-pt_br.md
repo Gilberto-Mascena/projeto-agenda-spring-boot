@@ -1,5 +1,5 @@
-[Português Brasileiro](https://github.com/Gilberto-Mascena/dslist/blob/main/README-pt_br.md) |
-[English](https://github.com/Gilberto-Mascena/dslist/blob/main/README.md)
+[Português Brasileiro](https://github.com/Gilberto-Mascena/projeto-agenda-spring-boot/blob/main/README-pt_br.md) |
+[English](https://github.com/Gilberto-Mascena/projeto-agenda-spring-boot/blob/main/README.md)
 
 
 # Projeto Agenda Spring Boot
