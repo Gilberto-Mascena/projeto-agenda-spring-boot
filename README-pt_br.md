@@ -50,11 +50,11 @@
 5. Documentaação da API está disponível em http://localhost:8080/swagger-ui.html.
 6. Para testar as funcionalidades, você pode usar o Postman ou qualquer outro cliente HTTP. [Collection do Postman](/docs/imgs/CRUD%20agenda.postman_collection.json)
 
-### Imagen do Postman
+### Imagem do Postman
 
 ![postman](/docs/imgs/screenshot-postman.png)
 
-### Acessar o Console H2\
+### Acessar o Console H2
 
 O H2 está configurado para rodar em memória durante os testes, e o console web está disponível em:
 
