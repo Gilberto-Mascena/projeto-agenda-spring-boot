@@ -1,4 +1,4 @@
-package br.com.mascenadev.projetoagendaspringboot.dto;
+package br.com.mascenadev.projetoagendaspringboot.dtos;
 
 import br.com.mascenadev.projetoagendaspringboot.entities.Contato;
 import jakarta.validation.constraints.Email;
@@ -13,7 +13,7 @@ import org.springframework.beans.BeanUtils;
  *
  * @author Gilberto Dev
  */
-public class ContatoRequest {
+public class ContatoRequestDTO {
 
     /**
      * Nome do contato.
@@ -40,7 +40,7 @@ public class ContatoRequest {
     /**
      * Construtor padrão.
      */
-    public ContatoRequest() {
+    public ContatoRequestDTO() {
     }
 
     /**
@@ -50,7 +50,7 @@ public class ContatoRequest {
      * @param email    o email do contato
      * @param telefone o telefone do contato
      */
-    public ContatoRequest(String nome, String email, String telefone) {
+    public ContatoRequestDTO(String nome, String email, String telefone) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;

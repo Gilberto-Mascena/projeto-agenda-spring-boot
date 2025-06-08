@@ -1,4 +1,4 @@
-package br.com.mascenadev.projetoagendaspringboot.dto;
+package br.com.mascenadev.projetoagendaspringboot.dtos;
 
 import br.com.mascenadev.projetoagendaspringboot.entities.Contato;
 
@@ -13,7 +13,7 @@ import java.util.Objects;
  * @author Gilberto Dev
  */
 
-public class ContatoResponse {
+public class ContatoResponseDTO {
 
     /**
      * Identificador único do contato.
@@ -41,7 +41,7 @@ public class ContatoResponse {
      *
      * @param entity Entidade Contato usada como base
      */
-    public ContatoResponse(Contato entity) {
+    public ContatoResponseDTO(Contato entity) {
         this.id = entity.getId();
         this.nome = entity.getNome();
         this.email = entity.getEmail();
@@ -93,7 +93,7 @@ public class ContatoResponse {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        ContatoResponse that = (ContatoResponse) o;
+        ContatoResponseDTO that = (ContatoResponseDTO) o;
         return Objects.equals(id, that.id);
     }
 
