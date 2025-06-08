@@ -1,7 +1,7 @@
 package br.com.mascenadev.projetoagendaspringboot.controller;
 
-import br.com.mascenadev.projetoagendaspringboot.dto.ContatoRequest;
-import br.com.mascenadev.projetoagendaspringboot.dto.ContatoResponse;
+import br.com.mascenadev.projetoagendaspringboot.dtos.ContatoRequestDTO;
+import br.com.mascenadev.projetoagendaspringboot.dtos.ContatoResponseDTO;
 import br.com.mascenadev.projetoagendaspringboot.entities.Contato;
 import br.com.mascenadev.projetoagendaspringboot.exception.ContatoNaoEncontradoException;
 import br.com.mascenadev.projetoagendaspringboot.service.ContatoService;
@@ -41,7 +41,7 @@ public class ContatoController {
     /**
      * Cria um novo contato.
      * <p>
-     * Este método recebe um {@link ContatoRequest}, converte-o em uma entidade {@link Contato},
+     * Este método recebe um {@link ContatoRequestDTO}, converte-o em uma entidade {@link Contato},
      * e então chama o serviço para salvar esse contato no banco de dados. Ao final, retorna o contato
      * salvo com status HTTP 201 (Created).
      * </p>
@@ -50,11 +50,11 @@ public class ContatoController {
      * @return {@link ResponseEntity} contendo a resposta com o status HTTP 201 e o contato criado
      */
     @PostMapping
-    public ResponseEntity<ContatoResponse> salvar(@RequestBody @Valid ContatoRequest request) {
+    public ResponseEntity<ContatoResponseDTO> salvar(@RequestBody @Valid ContatoRequestDTO request) {
         Contato contato = request.toEntity();
         Contato salvo = contatoService.salvar(contato);
         URI location = URI.create("/contatos/" + salvo.getId());
-        return ResponseEntity.created(location).body(new ContatoResponse(salvo));
+        return ResponseEntity.created(location).body(new ContatoResponseDTO(salvo));
     }
 
     /**
@@ -69,25 +69,25 @@ public class ContatoController {
      * @throws ContatoNaoEncontradoException se o contato não for encontrado
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ContatoResponse> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<ContatoResponseDTO> buscarPorId(@PathVariable Long id) {
         Contato contato = contatoService.buscarPorId(id)
                 .orElseThrow(() -> new ContatoNaoEncontradoException(id));
-        return ResponseEntity.ok(new ContatoResponse(contato));
+        return ResponseEntity.ok(new ContatoResponseDTO(contato));
     }
 
     /**
      * Retorna todos os contatos cadastrados.
      * <p>
-     * Este método retorna todos os contatos no banco de dados, convertidos em objetos {@link ContatoResponse}.
+     * Este método retorna todos os contatos no banco de dados, convertidos em objetos {@link ContatoResponseDTO}.
      * </p>
      *
      * @return {@link ResponseEntity} contendo a lista de todos os contatos com status HTTP 200 (OK)
      */
     @GetMapping
-    public ResponseEntity<List<ContatoResponse>> buscarTodos() {
+    public ResponseEntity<List<ContatoResponseDTO>> buscarTodos() {
         List<Contato> contatos = contatoService.buscarTodos();
-        List<ContatoResponse> contatoResponses = contatos.stream()
-                .map(ContatoResponse::new)
+        List<ContatoResponseDTO> contatoResponses = contatos.stream()
+                .map(ContatoResponseDTO::new)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(contatoResponses);
     }
@@ -95,7 +95,7 @@ public class ContatoController {
     /**
      * Atualiza um contato existente.
      * <p>
-     * Este método recebe um ID e um {@link ContatoRequest} com os novos dados do contato. O serviço é chamado para
+     * Este método recebe um ID e um {@link ContatoRequestDTO} com os novos dados do contato. O serviço é chamado para
      * atualizar o contato e, em seguida, retorna o contato atualizado com status HTTP 200 (OK).
      * </p>
      *
@@ -105,7 +105,7 @@ public class ContatoController {
      * @throws ContatoNaoEncontradoException se o contato não for encontrado
      */
     @PutMapping("/{id}")
-    public ResponseEntity<ContatoResponse> atualizar(@PathVariable Long id, @RequestBody @Valid ContatoRequest request) {
+    public ResponseEntity<ContatoResponseDTO> atualizar(@PathVariable Long id, @RequestBody @Valid ContatoRequestDTO request) {
         // Converte o DTO para entidade
         Contato contato = request.toEntity();
 
@@ -113,7 +113,7 @@ public class ContatoController {
         Contato atualizado = contatoService.atualizar(id, contato);
 
         // Retorna a resposta com status 200 (OK) e o ContatoResponse
-        return ResponseEntity.ok(new ContatoResponse(atualizado));
+        return ResponseEntity.ok(new ContatoResponseDTO(atualizado));
     }
 
     /**
