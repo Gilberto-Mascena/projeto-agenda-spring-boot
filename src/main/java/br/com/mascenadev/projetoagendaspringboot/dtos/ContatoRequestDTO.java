@@ -8,12 +8,19 @@ import jakarta.validation.constraints.Size;
 import org.springframework.beans.BeanUtils;
 
 /**
- * DTO utilizado para receber dados de requisições relacionadas à entidade {@link Contato}.
+ * DTO (Data Transfer Object) utilizado para encapsular os **dados de entrada**
+ * em requisições HTTP para a criação ou atualização de um {@link Contato}.
  * <p>
- * Contém validações para garantir que os campos obrigatórios sejam informados e estejam em formato válido.
+ * Este DTO é responsável por receber as informações básicas de um contato (nome, e-mail, telefone)
+ * e aplica validações rigorosas (definidas pelas anotações Jakarta Bean Validation)
+ * para garantir a integridade dos dados antes que sejam processados pelo serviço.
  * </p>
  *
  * @author Gilberto Dev
+ * @see Contato
+ * @see br.com.mascenadev.projetoagendaspringboot.controller.ContatoController#salvar(ContatoRequestDTO)
+ * @see br.com.mascenadev.projetoagendaspringboot.controller.ContatoController#atualizar(Long, ContatoRequestDTO)
+ * @since 1.0.0
  */
 public class ContatoRequestDTO {
 
@@ -50,11 +57,11 @@ public class ContatoRequestDTO {
     }
 
     /**
-     * Construtor com todos os campos.
+     * Construtor para criar uma nova instância de {@code ContatoRequestDTO} com os dados básicos.
      *
-     * @param nome     o nome do contato
-     * @param email    o email do contato
-     * @param telefone o telefone do contato
+     * @param nome     O nome completo do contato.
+     * @param email    O endereço de e-mail do contato.
+     * @param telefone O número de telefone do contato.
      */
     public ContatoRequestDTO(String nome, String email, String telefone) {
         this.nome = nome;
@@ -117,10 +124,15 @@ public class ContatoRequestDTO {
     }
 
     /**
-     * Converte este DTO em uma entidade {@link Contato}.
-     * Utiliza {@link BeanUtils#copyProperties(Object, Object)} para copiar as propriedades.
+     * Converte os dados contidos neste DTO para uma nova instância da entidade {@link Contato}.
+     * <p>
+     * Este método é útil para mapear os dados recebidos da requisição HTTP (no formato DTO)
+     * para o formato da entidade que será persistida no banco de dados.
+     * Ele utiliza {@link org.springframework.beans.BeanUtils#copyProperties(Object, Object)}
+     * para realizar a cópia das propriedades correspondentes entre os objetos.
+     * </p>
      *
-     * @return instância da entidade {@link Contato} com os dados deste DTO
+     * @return Uma nova instância de {@link Contato} preenchida com os dados deste {@code ContatoRequestDTO}.
      */
     public Contato toEntity() {
         Contato contato = new Contato();
