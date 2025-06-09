@@ -22,9 +22,9 @@ import java.util.Objects;
  * </p>
  *
  * @author Gilberto Dev
- * @since 1.0.0
  * @see br.com.mascenadev.projetoagendaspringboot.repository.ContatoRepository
  * @see br.com.mascenadev.projetoagendaspringboot.service.ContatoService
+ * @since 1.0.0
  */
 @Entity
 public class Contato implements Serializable {
