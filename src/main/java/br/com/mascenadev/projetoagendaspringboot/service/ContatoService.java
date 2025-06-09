@@ -10,25 +10,36 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Classe de serviço responsável por realizar operações relacionadas à entidade {@link Contato}.
+ * **Camada de Serviço** ({@link org.springframework.stereotype.Service}) responsável
+ * por encapsular e executar a **lógica de negócio** principal para a entidade {@link Contato}.
  * <p>
- * Atua como camada intermediária entre o controlador e o repositório,
- * encapsulando a lógica de negócio da aplicação.
+ * Atua como intermediária entre a camada de apresentação ({@link br.com.mascenadev.projetoagendaspringboot.controller.ContatoController})
+ * e a camada de persistência ({@link br.com.mascenadev.projetoagendaspringboot.repository.ContatoRepository}).
+ * Esta classe coordena as operações de CRUD, aplica regras de negócio,
+ * validações (quando necessário) e lida com a transacionalidade para garantir a integridade dos dados.
+ * </p>
  *
  * @author Gilberto Dev
- * </p>
+ * @see Contato
+ * @see br.com.mascenadev.projetoagendaspringboot.repository.ContatoRepository
+ * @see br.com.mascenadev.projetoagendaspringboot.controller.ContatoController
+ * @see br.com.mascenadev.projetoagendaspringboot.exception.ContatoNaoEncontradoException
+ * @since 1.0.0
  */
-
 @Service
-
 public class ContatoService {
 
     private final ContatoRepository contatoRepository;
 
     /**
-     * Construtor que injeta o repositório de contatos.
+     * Construtor para injeção de dependência do repositório de contatos.
+     * <p>
+     * O Spring Framework injeta uma instância de {@link ContatoRepository} para
+     * permitir que o serviço interaja com a camada de persistência e realize
+     * operações de acesso a dados.
+     * </p>
      *
-     * @param contatoRepository repositório para acesso aos dados de contatos
+     * @param contatoRepository A interface de repositório para acesso aos dados de contatos no banco de dados.
      */
     @Autowired
     public ContatoService(ContatoRepository contatoRepository) {
@@ -36,44 +47,66 @@ public class ContatoService {
     }
 
     /**
-     * Salva um novo contato ou atualiza um existente.
+     * Salva um novo {@link Contato} no banco de dados ou atualiza um contato existente.
+     * <p>
+     * Se o objeto {@link Contato} fornecido tiver um ID nulo, um novo contato será criado.
+     * Se o ID não for nulo e corresponder a um contato existente, este será atualizado.
+     * </p>
      *
-     * @param contato entidade {@link Contato} a ser salva
-     * @return o contato salvo
+     * @param contato A entidade {@link Contato} a ser persistida.
+     * @return A instância de {@link Contato} salva ou atualizada, com o ID gerado (se for uma nova criação).
+     * @see ContatoRepository#save(Object)
      */
     public Contato salvar(Contato contato) {
         return contatoRepository.save(contato);
     }
 
     /**
-     * Busca um contato pelo seu ID.
+     * Busca um {@link Contato} específico pelo seu identificador único.
+     * <p>
+     * Este método retorna um {@link java.util.Optional} para indicar a possível ausência do contato:
+     * <ul>
+     * <li>Um {@code Optional} contendo o {@link Contato} se ele for encontrado.</li>
+     * <li>Um {@code Optional} vazio ({@link Optional#empty()}) se nenhum contato corresponder ao ID.</li>
+     * </ul>
+     * </p>
      *
-     * @param id identificador do contato
-     * @return um {@link Optional} contendo o contato, se encontrado
+     * @param id O {@link Long} identificador único do contato a ser buscado.
+     * @return Um {@link Optional} que pode conter a entidade {@link Contato} encontrada.
+     * @see ContatoRepository#findById(Object)
      */
     public Optional<Contato> buscarPorId(Long id) {
         return contatoRepository.findById(id);
     }
 
     /**
-     * Retorna todos os contatos cadastrados.
+     * Retorna uma lista contendo todos os {@link Contato}s cadastrados no banco de dados.
+     * <p>
+     * A lista pode estar vazia se não houver contatos registrados.
+     * </p>
      *
-     * @return lista de contatos
+     * @return Uma {@link java.util.List} de entidades {@link Contato}.
+     * @see ContatoRepository#findAll()
      */
     public List<Contato> buscarTodos() {
         return contatoRepository.findAll();
     }
 
     /**
-     * Atualiza os dados de um contato existente.
+     * Atualiza as informações de um {@link Contato} existente com base no ID fornecido.
      * <p>
-     * Caso o contato não seja encontrado, uma {@link ContatoNaoEncontradoException} será lançada.
+     * O método primeiro tenta localizar o contato pelo {@code id}. Se encontrado,
+     * ele atualiza as propriedades de nome, e-mail e telefone com os dados do {@code contatoAtualizado}
+     * e persiste as alterações.
      * </p>
      *
-     * @param id                identificador do contato a ser atualizado
-     * @param contatoAtualizado objeto contendo os novos dados do contato
-     * @return o contato atualizado
-     * @throws ContatoNaoEncontradoException se o contato não for encontrado
+     * @param id                O {@link Long} identificador único do contato a ser atualizado.
+     * @param contatoAtualizado A entidade {@link Contato} contendo os novos dados (nome, email, telefone)
+     *                          que serão aplicados ao contato existente.
+     * @return A entidade {@link Contato} com os dados atualizados.
+     * @throws ContatoNaoEncontradoException Se nenhum contato for encontrado com o {@code id} fornecido.
+     * @see ContatoRepository#findById(Object)
+     * @see ContatoRepository#save(Object)
      */
     public Contato atualizar(Long id, Contato contatoAtualizado) {
         return contatoRepository.findById(id)
@@ -87,13 +120,17 @@ public class ContatoService {
     }
 
     /**
-     * Exclui um contato com base no ID.
+     * Exclui um {@link Contato} do banco de dados com base no seu identificador único.
      * <p>
-     * Se o contato não for encontrado, uma {@link ContatoNaoEncontradoException} será lançada.
+     * Antes de tentar a exclusão, o método verifica a existência do contato pelo ID.
+     * Se o contato não for encontrado, uma {@link ContatoNaoEncontradoException} é lançada.
+     * Caso contrário, o contato é removido permanentemente.
      * </p>
      *
-     * @param id identificador do contato a ser excluído
-     * @throws ContatoNaoEncontradoException se o contato não existir
+     * @param id O {@link Long} identificador único do contato a ser excluído.
+     * @throws ContatoNaoEncontradoException Se nenhum contato for encontrado com o {@code id} fornecido.
+     * @see ContatoRepository#existsById(Object)
+     * @see ContatoRepository#deleteById(Object)
      */
     public void excluir(Long id) {
         if (!contatoRepository.existsById(id)) {
