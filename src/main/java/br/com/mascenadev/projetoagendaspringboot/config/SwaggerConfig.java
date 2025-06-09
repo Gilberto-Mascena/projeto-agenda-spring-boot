@@ -9,24 +9,46 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Spring configuration class for customizing the OpenAPI (Swagger) documentation.
- *
- * <p>This configuration defines API metadata such as title, version, description,
- * and license information, which will be displayed in the generated Swagger UI.</p>
+ * Classe de configuração Spring ({@link org.springframework.context.annotation.Configuration})
+ * responsável por personalizar a documentação da API utilizando **OpenAPI 3.0** (anteriormente conhecida como Swagger).
+ * <p>
+ * Esta configuração define metadados essenciais da API, como título, versão, descrição e informações de licença.
+ * Esses detalhes são exibidos na interface de usuário interativa do **Swagger UI**,
+ * geralmente acessível em {@code /swagger-ui.html} ou {@code /swagger-ui/index.html},
+ * permitindo a exploração e teste dos endpoints da API de forma intuitiva.
+ * </p>
  *
  * @author Gilberto Dev
+ * @see io.swagger.v3.oas.models.OpenAPI
+ * @see io.swagger.v3.oas.models.info.Info
+ * @see io.swagger.v3.oas.annotations.OpenAPIDefinition
+ * @since 1.0.0
  */
 @Configuration
 public class SwaggerConfig {
 
-    // Inject the API version value from application.properties (ex: agenda.api.version=1.0.0)
+    /**
+     * Versão da API, injetada a partir da propriedade {@code projeto-agenda-spring-boot.api.version}
+     * definida no arquivo {@code application.properties} ou {@code application.yml}.
+     * Esta versão será exibida na documentação do Swagger UI.
+     */
     @Value("${projeto-agenda-spring-boot.api.version}")
     private String apiVersion;
 
     /**
-     * Builds and returns a custom {@link OpenAPI} object with API metadata.
+     * Configura e retorna uma instância personalizada de {@link OpenAPI} para a documentação da API.
+     * <p>
+     * Este método, anotado com {@link org.springframework.context.annotation.Bean},
+     * é executado pelo Spring para criar e registrar o objeto {@code OpenAPI} no contexto da aplicação.
+     * Ele define as informações globais da API, como título ({@code agenda API}),
+     * versão ({@code apiVersion} injetada), descrição e detalhes da licença,
+     * que serão apresentados no Swagger UI.
+     * </p>
      *
-     * @return an OpenAPI instance with configured information
+     * @return Uma instância de {@link OpenAPI} contendo os metadados configurados da API.
+     * @see io.swagger.v3.oas.models.OpenAPI#info(Info)
+     * @see io.swagger.v3.oas.models.info.Info
+     * @see #apiLicense()
      */
     @Bean
     public OpenAPI customOpenAPI() {
@@ -38,9 +60,12 @@ public class SwaggerConfig {
     }
 
     /**
-     * Creates and returns the {@link License} object for the API.
-     *
-     * @return a License instance with name and URL
+     * Cria e retorna o objeto {@link License} que detalha a licença de uso da API.
+     * <p>
+     * Atualmente configura a API para usar a **Licença MIT**, com um link direto para o seu repositório no GitHub.
+     * </p>
+     * @return Uma instância de {@link License} com o nome ("MIT License") e URL correspondente.
+     * @see io.swagger.v3.oas.models.info.License
      */
     private License apiLicense() {
         return new License()
