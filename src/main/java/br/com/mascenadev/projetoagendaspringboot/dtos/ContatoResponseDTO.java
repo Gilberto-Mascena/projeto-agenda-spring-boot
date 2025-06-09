@@ -5,14 +5,20 @@ import br.com.mascenadev.projetoagendaspringboot.entities.Contato;
 import java.util.Objects;
 
 /**
- * DTO de resposta que representa os dados de um contato retornados pela API.
+ * DTO (Data Transfer Object) utilizado para encapsular os **dados de saída**
+ * em respostas HTTP da API, representando as informações de um {@link Contato}.
  * <p>
- * Essa classe encapsula os dados expostos da entidade {@link Contato} ao cliente,
- * ocultando qualquer dado interno que não deve ser transferido diretamente.
+ * Este DTO serve como um contrato de dados para o cliente, expondo apenas as
+ * informações relevantes da entidade {@link Contato} e garantindo que dados
+ * internos ou sensíveis não sejam transferidos desnecessariamente.
+ * É usado para retornar contatos em operações de busca e após a criação/atualização bem-sucedida.
+ * </p>
  *
  * @author Gilberto Dev
+ * @see Contato
+ * @see br.com.mascenadev.projetoagendaspringboot.controller.ContatoController
+ * @since 1.0.0
  */
-
 public class ContatoResponseDTO {
 
     /**
@@ -37,9 +43,13 @@ public class ContatoResponseDTO {
     private final String telefone;
 
     /**
-     * Construtor que popula o DTO a partir da entidade {@link Contato}.
+     * Construtor para criar uma nova instância de {@code ContatoResponseDTO} a partir de uma entidade {@link Contato}.
+     * <p>
+     * Este construtor realiza o mapeamento das propriedades da entidade para os campos do DTO,
+     * facilitando a conversão de dados do modelo de domínio para o formato de resposta da API.
+     * </p>
      *
-     * @param entity Entidade Contato usada como base
+     * @param entity A entidade {@link Contato} cujos dados serão usados para popular o DTO.
      */
     public ContatoResponseDTO(Contato entity) {
         this.id = entity.getId();
