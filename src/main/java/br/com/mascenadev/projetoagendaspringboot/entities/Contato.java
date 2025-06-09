@@ -13,12 +13,18 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Representa um contato da agenda, contendo informações básicas como
- * nome, e-mail e telefone.
+ * Representa um **contato** na aplicação de agenda.
  * <p>
- * Esta classe é uma entidade JPA persistente.
+ * Esta classe é um **POJO (Plain Old Java Object)** que mapeia para uma tabela no banco de dados,
+ * atuando como uma **entidade JPA** ({@link jakarta.persistence.Entity}).
+ * Contém informações básicas como nome, e-mail e telefone, e é a representação
+ * persistente dos dados de um contato na base de dados.
+ * </p>
  *
  * @author Gilberto Dev
+ * @since 1.0.0
+ * @see br.com.mascenadev.projetoagendaspringboot.repository.ContatoRepository
+ * @see br.com.mascenadev.projetoagendaspringboot.service.ContatoService
  */
 @Entity
 public class Contato implements Serializable {
@@ -58,7 +64,6 @@ public class Contato implements Serializable {
             message = "Telefone deve estar no formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX")
     private String telefone;
 
-
     /**
      * Construtor padrão necessário para o JPA.
      */
@@ -66,11 +71,12 @@ public class Contato implements Serializable {
     }
 
     /**
-     * Construtor com parâmetros.
+     * Construtor para criar uma nova instância de {@code Contato} com todos os atributos obrigatórios,
+     * exceto o ID, que é gerado automaticamente pelo banco de dados.
      *
-     * @param nome     Nome do contato
-     * @param email    E-mail do contato
-     * @param telefone Telefone do contato
+     * @param nome     O nome completo do contato.
+     * @param email    O endereço de e-mail do contato.
+     * @param telefone O número de telefone do contato no formato especificado.
      */
     public Contato(String nome, String email, String telefone) {
         this.nome = nome;
