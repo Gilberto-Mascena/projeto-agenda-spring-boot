@@ -6,6 +6,6 @@ projeto-agenda-spring-boot:
 # Perfil activation
 spring:
   profiles:
-    active: ${APP_PROFILE:test}
+    active: ${APP_PROFILE:dev}
   jpa:
     open-in-view: false

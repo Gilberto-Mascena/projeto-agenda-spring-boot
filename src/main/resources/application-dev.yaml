@@ -1,12 +1,8 @@
-# Configuration database for development purposes
+# Configuration postgreSQL database for development purposes
 
 spring:
-  datasource:
-
-    url: your_database_url_here
-    driver-class-name: org.postgresql.Driver
-    username: your_username_here
-    password: your_password_here
+  config:
+    import: optional:file:./.env  #  datasource:
 
   # JPA
   jpa:
@@ -17,4 +13,4 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true
-        dialect: your_dialect_here
+        dialect: org.hibernate.dialect.PostgreSQLDialect
