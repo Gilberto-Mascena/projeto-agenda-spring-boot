@@ -29,7 +29,7 @@ public class SwaggerConfig {
 
     /**
      * Versão da API, injetada a partir da propriedade {@code projeto-agenda-spring-boot.api.version}
-     * definida no arquivo {@code application.properties} ou {@code application.yml}.
+     * definida no arquivo {@code application.properties} ou {@code application.yaml}.
      * Esta versão será exibida na documentação do Swagger UI.
      */
     @Value("${projeto-agenda-spring-boot.api.version}")
@@ -70,6 +70,6 @@ public class SwaggerConfig {
     private License apiLicense() {
         return new License()
                 .name("MIT License")
-                .url("https://github.com/Gilberto-Mascena/dslist/blob/main/LICENSE.md");
+                .url("https://github.com/Gilberto-Mascena/projeto-agenda-spring-boot/blob/main/LICENSE.md");
     }
 }
