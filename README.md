@@ -34,19 +34,20 @@ Boot_. The application allows you to perform basic CRUD operations (Create, Read
 
 1. Clone the repository:
 
-    ```bash
+```bash
     git@github.com:Gilberto-Mascena/projeto-agenda-spring-boot.git
-
+    cd projeto-agenda-springboot
+```
 2. Navigate to the project directory:
 
-    ```bash
-    cd projeto-agenda-springboot
-
+```bash
+    mvn clean install
+```
 3. Run the project using Maven:
 
-    ```bash
+```bash
     mvn spring-boot:run
-
+```
 4. The application will be running at http://localhost:8080.
 
 5. API documentation is available at http://localhost:8080/swagger-ui.html.
