@@ -1,10 +1,10 @@
 [Português Brasileiro](https://github.com/Gilberto-Mascena/projeto-agenda-spring-boot/blob/main/README-pt_br.md) |
 [English](https://github.com/Gilberto-Mascena/projeto-agenda-spring-boot/blob/main/README.md)
 
-
 # Projeto Agenda Spring Boot
 
-#### Este é um projeto de uma aplicação simples de agenda de contatos desenvolvida com _Spring Boot_. A aplicação permite realizar operações básicas de CRUD (Create, Read, Update, Delete) para gerenciar contatos.
+#### Este é um projeto de uma aplicação simples de agenda de contatos desenvolvida com _Spring
+Boot_. A aplicação permite realizar operações básicas de CRUD (Create, Read, Update, Delete) para gerenciar contatos.
 
 ## Funcionalidades
 
@@ -35,7 +35,7 @@
 
    ```bash
    git@github.com:Gilberto-Mascena/projeto-agenda-spring-boot.git
-   
+
 2. Navegue até o diretório do projeto:
 
     ```bash
@@ -48,7 +48,8 @@
 
 4. A aplicação estará rodando em http://localhost:8080.
 5. Documentaação da API está disponível em http://localhost:8080/swagger-ui.html.
-6. Para testar as funcionalidades, você pode usar o Postman ou qualquer outro cliente HTTP. [Collection do Postman](/docs/imgs/CRUD%20agenda.postman_collection.json)
+6. Para testar as funcionalidades, você pode usar o Postman ou qualquer outro cliente
+   HTTP. [Collection do Postman](/docs/imgs/CRUD%20agenda.postman_collection.json)
 
 ### Imagem do Postman
 
@@ -68,39 +69,60 @@ Password: (deixe em branco)
 
 ### Estrutura do Projeto
 
-``` text
-src/
-├── main/
-│    ├── java/
-│    │   └── br/com/mascenadev/projetoagendaspringboot/
-│    │       ├── config/               # Configurações do Swagger
-│    │       ├── controller/           # Controladores REST
-│    │       ├── dto/                  # Objetos de Transferência de Dados (DTOs)
-│    │       ├── entities/             # Entidades JPA
-│    │       ├── exception/            # Exceções personalizadas
-│    │       ├── repository/           # Repositórios JPA
-│    │       ├── service/              # Serviços de negócio
-│    │       └── ProjetoAgendaSpringBootApplication.java # Classe principal
-│    └── resources/
-│        └── static/                  # Recursos estáticos (HTML, CSS, JS)
-│        └── templates/               # Templates Thymeleaf (se necessário)
-│        ├── application.yaml          # Configurações do Spring Boot
-│        └── application.dev.yaml   # Configurações do Spring Boot
-│        └── application.prod.yaml   # Configurações do Spring Boot
-│        ├── application-test.yaml     # Configurações específicas para testes
-├── test/
-│    ├── java/
-│        └── br/com/mascenadev/projetoagendaspringboot/
-│            └── ProjetoAgendaSpringBootApplicationTests.java # Testes unitários
-│── target/                # Diretório gerado pelo Maven com os artefatos compilados
-├── .gitatributes            # Configurações do Git
-├── .gitignore               # Arquivo para ignorar arquivos/diretórios no Git
-├── HELP.md                # Documentação de ajuda do projeto
-├── mvnw                  # Script para executar o Maven
-├── mvnw.cmd              # Script para executar o Maven no Windows
-├── pom.xml                 # Arquivo de configuração do Maven
-├── README.md               # Documentação do projeto
-├── README-pt_br.md               # Documentação do projeto
+``` plaintext
+├── docs
+│   └── imgs
+│       ├── CRUD agenda.postman_collection.json
+│       ├── front-angular.png
+│       └── screenshot-postman.png
+├── HELP.md
+├── LICENSE.md
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── README.md
+├── README-pt_br.md
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── br
+    │   │       └── com
+    │   │           └── mascenadev
+    │   │               └── projetoagendaspringboot
+    │   │                   ├── config
+    │   │                   │   ├── CorsConfig.java
+    │   │                   │   └── SwaggerConfig.java
+    │   │                   ├── controller
+    │   │                   │   └── ContatoController.java
+    │   │                   ├── dtos
+    │   │                   │   ├── ContatoRequestDTO.java
+    │   │                   │   └── ContatoResponseDTO.java
+    │   │                   ├── entities
+    │   │                   │   └── Contato.java
+    │   │                   ├── exception
+    │   │                   │   ├── ContatoNaoEncontradoException.java
+    │   │                   │   ├── ErroResponse.java
+    │   │                   │   └── GlobalExceptionHandler.java
+    │   │                   ├── ProjetoAgendaSpringBootApplication.java
+    │   │                   ├── repository
+    │   │                   │   └── ContatoRepository.java
+    │   │                   └── service
+    │   │                       └── ContatoService.java
+    │   └── resources
+    │       ├── application-dev.yaml
+    │       ├── application-prod.yaml
+    │       ├── application-test.yaml
+    │       ├── application.yaml
+    │       ├── static
+    │       └── templates
+    └── test
+        └── java
+            └── br
+                └── com
+                    └── mascenadev
+                        └── projetoagendaspringboot
+                            └── ProjetoAgendaSpringBootApplicationTests.java
+
 ```
 
 ### Contribuição
