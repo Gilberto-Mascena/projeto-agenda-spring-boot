@@ -36,20 +36,19 @@
    git@github.com:Gilberto-Mascena/projeto-agenda-spring-boot.git
    cd projeto-agenda-springboot
 ```
-2. Navegue até o diretório do projeto:
 
+2. Execute o projeto usando Maven:
 ```bash
-    mvn clean install
+    mvn clean install    
 ```
-3. Execute o projeto usando Maven:
 
 ```bash
     mvn spring-boot:run
 ```
 
-4. A aplicação estará rodando em http://localhost:8080.
-5. Documentaação da API está disponível em http://localhost:8080/swagger-ui.html.
-6. Para testar as funcionalidades, você pode usar o Postman ou qualquer outro cliente
+3. A aplicação estará rodando em http://localhost:8080.
+4. Documentaação da API está disponível em http://localhost:8080/swagger-ui.html.
+5. Para testar as funcionalidades, você pode usar o Postman ou qualquer outro cliente
    HTTP. [Collection do Postman](/docs/imgs/CRUD%20agenda.postman_collection.json)
 
 ### Imagem do Postman
@@ -147,10 +146,8 @@ Envie um pull request com uma descrição detalhada das alterações.
 3. **Como Executar o Projeto**: Passos para rodar o projeto no seu ambiente local, incluindo o uso do Maven.
 4. **Acessar o Console H2**: Fornece detalhes sobre como acessar o banco de dados H2 para monitorar e testar
    diretamente.
-5. **Testes**: Explica como rodar os testes automatizados para garantir que a funcionalidade esteja funcionando
-   corretamente.
-6. **Estrutura do Projeto**: Descrição da estrutura de diretórios do projeto.
-7. **Contribuição e Licença**: Como contribuir para o projeto e a licença sob a qual o código está disponível.
+5. **Estrutura do Projeto**: Descrição da estrutura de diretórios do projeto.
+6. **Contribuição e Licença**: Como contribuir para o projeto e a licença sob a qual o código está disponível.
 
 Esse README fornecerá uma visão geral clara e prática de como rodar, testar e contribuir para o projeto.
 
