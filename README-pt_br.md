@@ -3,8 +3,7 @@
 
 # Projeto Agenda Spring Boot
 
-#### Este é um projeto de uma aplicação simples de agenda de contatos desenvolvida com _Spring
-Boot_. A aplicação permite realizar operações básicas de CRUD (Create, Read, Update, Delete) para gerenciar contatos.
+#### Este é um projeto de uma aplicação simples de agenda de contatos desenvolvida com Spring Boot. A aplicação permite realizar operações básicas de CRUD (Create, Read, Update, Delete) para gerenciar contatos.
 
 ## Funcionalidades
 
