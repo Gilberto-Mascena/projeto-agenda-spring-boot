@@ -31,7 +31,7 @@ public class ContatoMapper {
         );
     }
 
-    public void AtualizarContato(ContatoRequestDTO dto, Contato contato) {
+    public void atualizarContato(ContatoRequestDTO dto, Contato contato) {
 
         if (dto == null || contato == null) return;
 
