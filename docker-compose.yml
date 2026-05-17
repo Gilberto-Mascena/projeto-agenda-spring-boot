@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres:15
+    container_name: postgres-agenda
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - "/Volumes/storange mac/api-agenda-backend/postgres_data_api-agenda-backend:/var/lib/postgresql/data"
