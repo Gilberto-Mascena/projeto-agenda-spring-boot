@@ -3,8 +3,6 @@
 
 # Projeto Agenda Spring Boot
 
-# Spring Boot Agenda Project
-
 #### Uma API REST profissional e robusta para gerenciamento de contatos, desenvolvida com Spring Boot 3.x, focada em boas práticas de mercado, segurança e conteinerização.
 
 ## 🚀 Funcionalidades
