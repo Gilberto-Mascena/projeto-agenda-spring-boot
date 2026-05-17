@@ -3,128 +3,94 @@
 
 # Spring Boot Agenda Project
 
-#### This is a project for a simple contact agenda application developed with Spring Boot. The application allows you to perform basic CRUD operations (Create, Read, Update, Delete) to manage contacts.
+#### A professional and robust REST API for contact management, developed with Spring Boot 3.x, focused on market best practices, security, and containerization.
 
-## Features
+## 🚀 Features
 
-- **Register Contact**: Allows you to add new contacts to the agenda.
-- **Search Contacts**: Allows you to search for all registered contacts or search by ID.
-- **Update Contact**: Allows you to update the data of an existing contact.
-- **Delete Contact**: Allows you to delete a contact from the agenda.
+- **Contact Registration**: Allows adding new contacts to the address book with data validation (`spring-boot-starter-validation`).
 
-## Technologies Used
+- **Contact Query**: Complete listing or refined search by ID.
 
-- **Spring Boot**: Framework for rapid development of Java applications.
-- **H2**: In-memory database used for testing.
-- **Postgres**: Relational database used in production.
-- **JPA (Hibernate)**: For interaction with the relational database. - **Postman**: For API testing and simulating HTTP
-  requests.
-- **Swagger**: For API documentation and interactive testing.
+- **Contact Update**: Secure update flow using structured DTOs such as *Java Records* and Mappers.
 
-## How to Run the Project
+- **Contact Deletion**: Physical removal of records from the database.
+
+## 🛠️ Technologies and Tools Used
+
+- **Java 21**: Using the most modern features of the language, such as *Records*.
+
+- **Spring Boot 3.5.0**: Main ecosystem for the development of the REST API.
+
+- **PostgreSQL**: Official relational database used in development and production environments.
+
+- **H2 Database**: Isolated in-memory database exclusively for fast execution of automated tests with **JUnit 5**.
+
+- **Spring Data JPA (Hibernate)**: For abstraction of the persistence layer and object-relational mapping.
+
+- **Docker & Docker Compose**: For orchestration and fast initialization of the database container.
+
+- **Java Dotenv (`cdimascio`)**: For secure management of credentials and environment variables in `.env` files.
+
+- **Swagger (Springdoc OpenAPI)**: For interactive documentation and visual testing of API endpoints.
+
+## 📁 Featured Folder Structure
+
+The project has been restructured following software design conventions:
+
+- `src/main/java/.../exceptions/`: Centralization of global error handling (`@RestControllerAdvice`).
+
+- Isolated mapping between Entities and Records to ensure that sensitive data is not unnecessarily exposed in the request/response.
+
+## 🏁 How to Run the Project
 
 ### Prerequisites
 
-- **Java 11+** or higher.
-- **Maven** installed for dependency management.
+- **Java 21** installed.
 
-### Steps to run
+- **Docker** and **Docker Compose** installed and running on the machine.
 
-1. Clone the repository:
+- **Maven** for dependency management (or use the included `mvnw`).
 
-```bash
-    git@github.com:Gilberto-Mascena/projeto-agenda-spring-boot.git
-    cd projeto-agenda-springboot
-```
+### Step by Step
 
-2. Run the project using Maven:
+1. **Clone the repository:**
 
 ```bash
-    mvn clean install
+git clone git@github.com:Gilberto-Mascena/projeto-agenda-spring-boot.git
+cd projeto-agenda-spring-boot
 ```
+
+2. **Configure the Environment Variables:**
+   Since the credentials are protected, we created an example file. Copy the .env.example file, creating your actual .env file in the project root, and fill it with your local configurations (the keys must match the Spring and Docker properties):
 
 ```bash
-    mvn spring-boot:run
+cp .env.example .env
 ```
-3. The application will be running at http://localhost:8080.
+3. **Start the Database (Docker):**
 
-4. API documentation is available at http://localhost:8080/swagger-ui.html.
-5. To test the functionality, you can use Postman or any other HTTP
-   client. [Postman Collection](/docs/imgs/CRUD%20agenda.postman_collection.json)
+With Docker running, initialize the PostgreSQL container in the background:
+```bash
+docker compose up -d
+```
+4. **Compile and Run the Application:**
+
+```bash
+mvn clean install
+mvn spring-boot:run
+```
+5. **Access the Application and Documentation:**
+
+- The API will be running locally at: `http://localhost:8080`
+
+- To visually test the endpoints, access the Swagger UI at: `http://localhost:8080/swagger-ui/index.html`
+
+- To test the functionalities, You can use Postman or any other HTTP client. [Postman Collection](/docs/imgs/CRUD%20agenda.postman_collection.json)
 
 ### Postman Screenshot
 
 ![postman](/docs/imgs/screenshot-postman.png)
 ----
 ![front-end](/docs/imgs/front-angular.png)
-
-### Access the H2 Console
-
-H2 is configured to run in memory during testing, and the web console is available at:
-
-URL: http://localhost:8080/h2-console
-
-JDBC URL: jdbc:h2:mem:testdb\
-Username: sa\
-Password: (leave blank)
-
-### Project Structure
-
-``` plaintext
-├── docs
-│   └── imgs
-│       ├── CRUD-agenda.postman_collection.json
-│       ├── front-angular.png
-│       └── screenshot-postman.png
-├── HELP.md
-├── LICENSE.md
-├── mvnw
-├── mvnw.cmd
-├── pom.xml
-├── README.md
-├── README-en.md
-└── src
-    ├── main
-    │   ├── java
-    │   │   └── br
-    │   │       └── com
-    │   │           └── mascenadev
-    │   │               └── projetoagendaspringboot
-    │   │                   ├── config
-    │   │                   │   ├── CorsConfig.java
-    │   │                   │   └── SwaggerConfig.java
-    │   │                   ├── controller
-    │   │                   │   └── ContactController.java
-    │   │                   ├── dtos
-    │   │                   │   ├── ContactRequestDTO.java
-    │   │                   │   └── ContactResponseDTO.java
-    │   │                   ├── entities
-    │   │                   │   └── Contact.java
-    │   │                   ├── exception
-    │   │                   │   ├── ContactNotFoundException.java
-    │   │                   │   ├── ErrorResponse.java
-    │   │                   │   └── GlobalExceptionHandler.java
-    │   │                   ├── ProjetoAgendaSpringBootApplication.java
-    │   │                   ├── repository
-    │   │                   │   └── ContactRepository.java
-    │   │                   └── service
-    │   │                       └── ContactService.java
-    │   └── resources
-    │       ├── application-dev.yaml
-    │       ├── application-prod.yaml
-    │       ├── application-test.yaml
-    │       ├── application.yaml
-    │       ├── static
-    │       └── templates
-    └── test
-        └── java
-            └── br
-                └── com
-                    └── mascenadev
-                        └── projetoagendaspringboot
-                            └── ProjetoAgendaSpringBootApplicationTests.java
-
-```
 
 ### Contribution
 
@@ -139,15 +105,3 @@ Submit a pull request with a detailed description of the changes.
 *This project is licensed under the MIT License. See more details at:* [_LICENSE.md_](/LICENSE.md)
 
 ### Gilberto | Dev _2025_
-
-### README Explanation:
-
-1. **Introduction**: Explains the project's objective and main features.
-2. **Technologies Used**: Lists the technologies that were used in the project.
-3. **How to Run the Project**: Steps to run the project in your local environment, including the use of Maven.
-4. **Accessing the H2 Console**: Provides details on how to access the H2 database for monitoring and testing
-   directly.
-5. **Project Structure**: Description of the project directory structure.
-6. **Contribution and License**: How to contribute to the project and license under which the code is available.
-
-This README will provide a clear and practical overview of how to run, test, and contribute to the project.
