@@ -3,127 +3,79 @@
 
 # Projeto Agenda Spring Boot
 
-#### Este é um projeto de uma aplicação simples de agenda de contatos desenvolvida com Spring Boot. A aplicação permite realizar operações básicas de CRUD (Create, Read, Update, Delete) para gerenciar contatos.
+# Spring Boot Agenda Project
 
-## Funcionalidades
+#### Uma API REST profissional e robusta para gerenciamento de contatos, desenvolvida com Spring Boot 3.x, focada em boas práticas de mercado, segurança e conteinerização.
 
-- **Cadastrar Contato**: Permite adicionar novos contatos à agenda.
-- **Buscar Contatos**: Permite buscar todos os contatos cadastrados ou buscar por ID.
-- **Atualizar Contato**: Permite atualizar os dados de um contato existente.
-- **Excluir Contato**: Permite excluir um contato da agenda.
+## 🚀 Funcionalidades
 
-## Tecnologias Utilizadas
+- **Cadastro de Contatos**: Permite adicionar novos contatos à agenda com validações de dados (`spring-boot-starter-validation`).
+- **Consulta de Contatos**: Listagem completa ou busca refinada por ID.
+- **Atualização de Contatos**: Fluxo seguro de atualização utilizando DTOs estruturados como *Java Records* e Mappers.
+- **Exclusão de Contatos**: Remoção física de registros do banco de dados.
 
-- **Spring Boot**: Framework para desenvolvimento rápido de aplicações Java.
-- **H2**: Banco de dados em memória utilizado para testes.
-- **Postgres**: Banco de dados relacional utilizado em produção.
-- **JPA (Hibernate)**: Para interação com o banco de dados relacional.
-- **Postman**: Para testes de API e simulação de requisições HTTP.
-- **Swagger**: Para documentação da API e testes interativos.
+## 🛠️ Tecnologias e Ferramentas Utilizadas
 
-## Como Executar o Projeto
+- **Java 21**: Utilizando os recursos mais modernos da linguagem, como *Records*.
+- **Spring Boot 3.5.0**: Ecossistema principal para o desenvolvimento da API REST.
+- **PostgreSQL**: Banco de dados relacional oficial utilizado no ambiente de desenvolvimento e produção.
+- **H2 Database**: Banco de dados em memória isolado exclusivamente para a execução veloz de testes automatizados com **JUnit 5**.
+- **Spring Data JPA (Hibernate)**: Para abstração da camada de persistência e mapeamento objeto-relacional.
+- **Docker & Docker Compose**: Para orquestração e inicialização rápida do container do banco de dados.
+- **Java Dotenv (`cdimascio`)**: Para gerenciamento seguro de credenciais e variáveis de ambiente em arquivos `.env`.
+- **Swagger (Springdoc OpenAPI)**: Para documentação interativa e testes dos endpoints da API de forma visual.
 
-### Pré-requisitos
+## 📁 Estrutura de Pastas de Destaque
 
-- **Java 11+** ou versão superior.
-- **Maven** instalado para gerenciamento de dependências.
+O projeto foi reestruturado seguindo as convenções de design de software:
+- `src/main/java/.../exceptions/`: Centralização de tratamentos de erros globais (`@RestControllerAdvice`).
+- Mapeamento isolado entre Entidades e Records para garantir que dados sensíveis não sejam expostos desnecessariamente na requisição/resposta.
 
-### Passos para executar
+## 🏁 Como Executar o Projeto
 
-1. Clone o repositório:
+### Prerrequisitos
+
+- **Java 21** instalado.
+- **Docker** e **Docker Compose** instalados e rodando na máquina.
+- **Maven** para gerenciamento de dependências (ou utilize o `mvnw` incluso).
+
+### Passo a Passo
+
+1. **Clonar o repositório:**
 
 ```bash
-   git@github.com:Gilberto-Mascena/projeto-agenda-spring-boot.git
-   cd projeto-agenda-springboot
+git clone git@github.com:Gilberto-Mascena/projeto-agenda-spring-boot.git
+cd projeto-agenda-spring-boot
 ```
 
-2. Execute o projeto usando Maven:
-```bash
-    mvn clean install    
-```
+2. **Configurar as Variáveis de Ambiente:**
+Como as credenciais são protegidas, criamos um arquivo de exemplo. Copie o arquivo .env.example criando o seu arquivo .env real na raiz do projeto e preencha com as suas configurações locais (as chaves devem bater com as propriedades do Spring e do Docker):
 
 ```bash
-    mvn spring-boot:run
+cp .env.example .env
 ```
+3. **Subir o Banco de Dados (Docker):**
+   Com o Docker rodando, inicialize o container do PostgreSQL em segundo plano:
+```bash
+docker compose up -d
+```
+4. **Compilar e Executar a Aplicação:**
 
-3. A aplicação estará rodando em http://localhost:8080.
-4. Documentaação da API está disponível em http://localhost:8080/swagger-ui.html.
-5. Para testar as funcionalidades, você pode usar o Postman ou qualquer outro cliente
-   HTTP. [Collection do Postman](/docs/imgs/CRUD%20agenda.postman_collection.json)
+```bash
+mvn clean install
+mvn spring-boot:run
+```
+5. **Acessar a Aplicação e Documentação:**
+   - A API estará rodando localmente em: `http://localhost:8080`
+   - Para testar os endpoints visualmente, acesse o Swagger UI em: `http://localhost:8080/swagger-ui/index.html`
+   - Para testar as funcionalidades, você pode usar o Postman ou qualquer outro cliente
+      HTTP. [Collection do Postman](/docs/imgs/CRUD%20agenda.postman_collection.json)
 
 ### Imagem do Postman
 
 ![postman](/docs/imgs/screenshot-postman.png)
 ----
 ![front-end](/docs/imgs/front-angular.png)
-
-### Acessar o Console H2
-
-O H2 está configurado para rodar em memória durante os testes, e o console web está disponível em:
-
-URL: http://localhost:8080/h2-console
-
-JDBC URL: jdbc:h2:mem:testdb\
-Username: sa\
-Password: (deixe em branco)
-
-### Estrutura do Projeto
-
-``` plaintext
-├── docs
-│   └── imgs
-│       ├── CRUD agenda.postman_collection.json
-│       ├── front-angular.png
-│       └── screenshot-postman.png
-├── HELP.md
-├── LICENSE.md
-├── mvnw
-├── mvnw.cmd
-├── pom.xml
-├── README.md
-├── README-pt_br.md
-└── src
-    ├── main
-    │   ├── java
-    │   │   └── br
-    │   │       └── com
-    │   │           └── mascenadev
-    │   │               └── projetoagendaspringboot
-    │   │                   ├── config
-    │   │                   │   ├── CorsConfig.java
-    │   │                   │   └── SwaggerConfig.java
-    │   │                   ├── controller
-    │   │                   │   └── ContatoController.java
-    │   │                   ├── dtos
-    │   │                   │   ├── ContatoRequestDTO.java
-    │   │                   │   └── ContatoResponseDTO.java
-    │   │                   ├── entities
-    │   │                   │   └── Contato.java
-    │   │                   ├── exception
-    │   │                   │   ├── ContatoNaoEncontradoException.java
-    │   │                   │   ├── ErroResponse.java
-    │   │                   │   └── GlobalExceptionHandler.java
-    │   │                   ├── ProjetoAgendaSpringBootApplication.java
-    │   │                   ├── repository
-    │   │                   │   └── ContatoRepository.java
-    │   │                   └── service
-    │   │                       └── ContatoService.java
-    │   └── resources
-    │       ├── application-dev.yaml
-    │       ├── application-prod.yaml
-    │       ├── application-test.yaml
-    │       ├── application.yaml
-    │       ├── static
-    │       └── templates
-    └── test
-        └── java
-            └── br
-                └── com
-                    └── mascenadev
-                        └── projetoagendaspringboot
-                            └── ProjetoAgendaSpringBootApplicationTests.java
-
-```
 
 ### Contribuição
 
@@ -138,16 +90,4 @@ Envie um pull request com uma descrição detalhada das alterações.
 *Este projeto é licenciado sob a Licença MIT. Veja mais detalhes em:* [_LICENSE.md_](/LICENSE.md)
 
 ### Gilberto | Dev _2025_
-
-### Explicação do README:
-
-1. **Introdução**: Explica o objetivo do projeto e as funcionalidades principais.
-2. **Tecnologias Utilizadas**: Lista as tecnologias que foram usadas no projeto.
-3. **Como Executar o Projeto**: Passos para rodar o projeto no seu ambiente local, incluindo o uso do Maven.
-4. **Acessar o Console H2**: Fornece detalhes sobre como acessar o banco de dados H2 para monitorar e testar
-   diretamente.
-5. **Estrutura do Projeto**: Descrição da estrutura de diretórios do projeto.
-6. **Contribuição e Licença**: Como contribuir para o projeto e a licença sob a qual o código está disponível.
-
-Esse README fornecerá uma visão geral clara e prática de como rodar, testar e contribuir para o projeto.
 
