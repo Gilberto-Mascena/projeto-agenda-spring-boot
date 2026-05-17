@@ -1,26 +1,18 @@
-# API configuration version
 projeto-agenda-spring-boot:
   api:
     version: v1.0.0
 
 spring:
   datasource:
-    url: jdbc:h2:mem:devdb
-    driver-class-name: org.h2.Driver # Ou org.postgresql.Driver
-    username: sa
-    password:
-
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+    url: jdbc:postgresql://localhost:${DB_PORT}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true # Exibe SQL no console
+    show-sql: true
     properties:
       hibernate:
-        format-sql: true # Formata SQL para legibilidade
-        use-sql-comments: true # Adiciona comentários para legibilidade
-        dialect: org.hibernate.dialect.H2Dialect # Ou org.hibernate.dialect.PostgreSQLDialect
+        format-sql: true
