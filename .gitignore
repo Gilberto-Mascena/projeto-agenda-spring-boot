@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### MacOS ###
+.DS_Store
+
+### Environment ###
+.env
+
+### PostgreSQL ###
+postgres_data_api-agenda-backend/
