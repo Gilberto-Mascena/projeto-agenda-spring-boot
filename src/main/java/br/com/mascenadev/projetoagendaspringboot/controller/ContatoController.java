@@ -30,6 +30,11 @@ public class ContatoController {
         return ResponseEntity.ok().body(contatoService.listarTodos());
     }
 
+    @GetMapping("/buscar")
+    public ResponseEntity<List<ContatoResponseDTO>> buscaGlobal(@RequestParam String termo) {
+        return ResponseEntity.ok(contatoService.buscaGlobal(termo));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ContatoResponseDTO> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(contatoService.buscarId(id));
