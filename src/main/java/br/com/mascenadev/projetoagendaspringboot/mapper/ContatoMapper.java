@@ -1,8 +1,8 @@
 package br.com.mascenadev.projetoagendaspringboot.mapper;
 
-import br.com.mascenadev.projetoagendaspringboot.dtos.ContatoRequestDTO;
-import br.com.mascenadev.projetoagendaspringboot.dtos.ContatoResponseDTO;
-import br.com.mascenadev.projetoagendaspringboot.entities.Contato;
+import br.com.mascenadev.projetoagendaspringboot.dto.ContatoRequestDTO;
+import br.com.mascenadev.projetoagendaspringboot.dto.ContatoResponseDTO;
+import br.com.mascenadev.projetoagendaspringboot.entity.Contato;
 import org.springframework.stereotype.Component;
 
 @Component

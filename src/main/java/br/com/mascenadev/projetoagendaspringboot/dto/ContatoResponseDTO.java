@@ -1,4 +1,4 @@
-package br.com.mascenadev.projetoagendaspringboot.dtos;
+package br.com.mascenadev.projetoagendaspringboot.dto;
 
 public record ContatoResponseDTO(
         Long id,

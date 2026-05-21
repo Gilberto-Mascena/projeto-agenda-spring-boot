@@ -1,4 +1,4 @@
-package br.com.mascenadev.projetoagendaspringboot.exceptions;
+package br.com.mascenadev.projetoagendaspringboot.exception;
 
 import java.time.Instant;
 import java.util.List;

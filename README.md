@@ -84,7 +84,7 @@ mvn spring-boot:run
 
 - To visually test the endpoints, access the Swagger UI at: `http://localhost:8080/swagger-ui/index.html`
 
-- To test the functionalities, You can use Postman or any other HTTP client. [Postman Collection](/docs/imgs/CRUD%20agenda.postman_collection.json)
+- To test the functionalities, You can use Postman or any other HTTP client. [Postman Collection](/docs/postman/CRUD%20agenda.postman_collection.json) available for import.
 
 ### Postman Screenshot
 

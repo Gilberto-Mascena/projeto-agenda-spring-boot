@@ -1,4 +1,4 @@
-package br.com.mascenadev.projetoagendaspringboot.dtos;
+package br.com.mascenadev.projetoagendaspringboot.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

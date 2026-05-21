@@ -1,4 +1,4 @@
-package br.com.mascenadev.projetoagendaspringboot.exceptions;
+package br.com.mascenadev.projetoagendaspringboot.exception;
 
 public record ValidationErrorDetails(
         String campo,

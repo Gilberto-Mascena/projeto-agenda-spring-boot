@@ -1,12 +1,12 @@
 package br.com.mascenadev.projetoagendaspringboot.service;
 
-import br.com.mascenadev.projetoagendaspringboot.dtos.ContatoRequestDTO;
-import br.com.mascenadev.projetoagendaspringboot.dtos.ContatoResponseDTO;
-import br.com.mascenadev.projetoagendaspringboot.entities.Contato;
-import br.com.mascenadev.projetoagendaspringboot.exceptions.BusinessException;
-import br.com.mascenadev.projetoagendaspringboot.exceptions.ObjectNotFoundException;
+import br.com.mascenadev.projetoagendaspringboot.dto.ContatoRequestDTO;
+import br.com.mascenadev.projetoagendaspringboot.dto.ContatoResponseDTO;
+import br.com.mascenadev.projetoagendaspringboot.entity.Contato;
+import br.com.mascenadev.projetoagendaspringboot.exception.BusinessException;
+import br.com.mascenadev.projetoagendaspringboot.exception.ObjectNotFoundException;
 import br.com.mascenadev.projetoagendaspringboot.mapper.ContatoMapper;
-import br.com.mascenadev.projetoagendaspringboot.messages.ContatoMessages;
+import br.com.mascenadev.projetoagendaspringboot.message.ContatoMessages;
 import br.com.mascenadev.projetoagendaspringboot.repository.ContatoRepository;
 import org.springframework.stereotype.Service;
 

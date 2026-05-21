@@ -1,4 +1,4 @@
-package br.com.mascenadev.projetoagendaspringboot.entities;
+package br.com.mascenadev.projetoagendaspringboot.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

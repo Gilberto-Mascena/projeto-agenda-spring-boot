@@ -67,7 +67,7 @@ mvn spring-boot:run
    - A API estará rodando localmente em: `http://localhost:8080`
    - Para testar os endpoints visualmente, acesse o Swagger UI em: `http://localhost:8080/swagger-ui/index.html`
    - Para testar as funcionalidades, você pode usar o Postman ou qualquer outro cliente
-      HTTP. [Collection do Postman](/docs/imgs/CRUD%20agenda.postman_collection.json)
+      HTTP. [Collection do Postman](/docs/postman/CRUD%20agenda.postman_collection.json) disponível para importação.
 
 ### Imagem do Postman
 

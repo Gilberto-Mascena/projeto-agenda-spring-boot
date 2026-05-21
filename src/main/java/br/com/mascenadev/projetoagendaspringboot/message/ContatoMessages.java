@@ -1,4 +1,4 @@
-package br.com.mascenadev.projetoagendaspringboot.messages;
+package br.com.mascenadev.projetoagendaspringboot.message;
 
 import br.com.mascenadev.projetoagendaspringboot.interfaces.MessageBase;
 import lombok.Getter;

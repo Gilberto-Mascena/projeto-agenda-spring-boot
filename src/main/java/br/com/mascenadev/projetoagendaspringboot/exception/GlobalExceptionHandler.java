@@ -1,4 +1,4 @@
-package br.com.mascenadev.projetoagendaspringboot.exceptions;
+package br.com.mascenadev.projetoagendaspringboot.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

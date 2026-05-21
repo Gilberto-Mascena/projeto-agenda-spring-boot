@@ -1,7 +1,7 @@
 package br.com.mascenadev.projetoagendaspringboot.controller;
 
-import br.com.mascenadev.projetoagendaspringboot.dtos.ContatoRequestDTO;
-import br.com.mascenadev.projetoagendaspringboot.dtos.ContatoResponseDTO;
+import br.com.mascenadev.projetoagendaspringboot.dto.ContatoRequestDTO;
+import br.com.mascenadev.projetoagendaspringboot.dto.ContatoResponseDTO;
 import br.com.mascenadev.projetoagendaspringboot.service.ContatoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
