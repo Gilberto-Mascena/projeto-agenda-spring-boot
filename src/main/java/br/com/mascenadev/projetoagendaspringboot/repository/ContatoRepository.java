@@ -4,4 +4,6 @@ import br.com.mascenadev.projetoagendaspringboot.entities.Contato;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ContatoRepository extends JpaRepository<Contato, Long> {
+
+    boolean existsByEmail(String email);
 }
