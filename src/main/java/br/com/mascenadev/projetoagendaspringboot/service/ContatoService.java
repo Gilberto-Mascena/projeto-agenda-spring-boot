@@ -41,23 +41,16 @@ public class ContatoService {
     }
 
     public List<ContatoResponseDTO> buscaGlobal(String termo) {
-        // Validação 1: Se o termo for nulo ou estiver em branco (vazio ou só espaços)
         if (termo == null || termo.isBlank()) {
-            // Retorna uma lista vazia segura sem ir ao banco de dados
             return Collections.emptyList();
         }
 
-        // Limpa espaços extras que o usuário pode ter digitado nas pontas
         String termoLimpo = termo.trim();
 
-        // Validação 2: Exigir um tamanho mínimo para a busca (ex: 3 caracteres)
         if (termoLimpo.length() < 3) {
-            // Aqui você pode retornar vazio ou lançar uma exceção de negócio,
-            // dependendo de como quer que o seu Controller reaja.
             throw new BusinessException(ContatoMessages.TERMO_BUSCA_CURTO);
         }
 
-        // Se passou pelas validações, chama o repository passando o termo uma única vez
         return contatoRepository.buscaGlobal(termoLimpo)
                 .stream()
                 .map(contatoMapper::toResponseDTO)
