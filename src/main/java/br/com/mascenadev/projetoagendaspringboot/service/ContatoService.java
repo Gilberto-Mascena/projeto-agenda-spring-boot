@@ -9,6 +9,7 @@ import br.com.mascenadev.projetoagendaspringboot.mapper.ContatoMapper;
 import br.com.mascenadev.projetoagendaspringboot.message.ContatoMessages;
 import br.com.mascenadev.projetoagendaspringboot.repository.ContatoRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,6 +25,7 @@ public class ContatoService {
         this.contatoMapper = contatoMapper;
     }
 
+    @Transactional
     public ContatoResponseDTO salvarContato(ContatoRequestDTO dto) {
         if (contatoRepository.existsByEmail(dto.email())) {
             throw new BusinessException(ContatoMessages.EMAIL_JA_CADASTRADO);
@@ -34,12 +36,14 @@ public class ContatoService {
         return contatoMapper.toResponseDTO(contato);
     }
 
+    @Transactional(readOnly = true)
     public List<ContatoResponseDTO> listarTodos() {
         return contatoRepository.findAllByOrderByNomeAsc().stream()
                 .map(contatoMapper::toResponseDTO)
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public List<ContatoResponseDTO> buscaGlobal(String termo) {
         if (termo == null || termo.isBlank()) {
             return Collections.emptyList();
@@ -57,12 +61,14 @@ public class ContatoService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public ContatoResponseDTO buscarId(Long id) {
         return contatoRepository.findById(id)
                 .map(contatoMapper::toResponseDTO)
                 .orElseThrow(() -> new ObjectNotFoundException(ContatoMessages.CONTATO_NAO_ENCONTRADO));
     }
 
+    @Transactional
     public ContatoResponseDTO atualizar(Long id, ContatoRequestDTO dto) {
         Contato contato = contatoRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException(ContatoMessages.CONTATO_NAO_ENCONTRADO));
@@ -71,6 +77,7 @@ public class ContatoService {
         return contatoMapper.toResponseDTO(contatoAtualizado);
     }
 
+    @Transactional
     public void excluir(Long id) {
         if (!contatoRepository.existsById(id)) {
             throw new ObjectNotFoundException(ContatoMessages.CONTATO_NAO_ENCONTRADO);
