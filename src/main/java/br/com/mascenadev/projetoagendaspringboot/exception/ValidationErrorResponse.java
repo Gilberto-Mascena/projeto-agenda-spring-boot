@@ -3,7 +3,7 @@ package br.com.mascenadev.projetoagendaspringboot.exception;
 import java.time.Instant;
 import java.util.List;
 
-public record ErroResponseValidacao(
+public record ValidationErrorResponse(
         Instant dataHora,
         Integer status,
         String codigo,
