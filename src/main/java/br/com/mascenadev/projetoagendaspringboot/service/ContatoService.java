@@ -6,7 +6,7 @@ import br.com.mascenadev.projetoagendaspringboot.entity.Contato;
 import br.com.mascenadev.projetoagendaspringboot.exception.BusinessException;
 import br.com.mascenadev.projetoagendaspringboot.exception.ObjectNotFoundException;
 import br.com.mascenadev.projetoagendaspringboot.mapper.ContatoMapper;
-import br.com.mascenadev.projetoagendaspringboot.message.ContatoMessages;
+import br.com.mascenadev.projetoagendaspringboot.message.BusinessMessages;
 import br.com.mascenadev.projetoagendaspringboot.repository.ContatoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +28,7 @@ public class ContatoService {
     @Transactional
     public ContatoResponseDTO salvarContato(ContatoRequestDTO dto) {
         if (contatoRepository.existsByEmail(dto.email())) {
-            throw new BusinessException(ContatoMessages.EMAIL_JA_CADASTRADO);
+            throw new BusinessException(BusinessMessages.EMAIL_JA_CADASTRADO);
         }
 
         Contato contato = contatoMapper.toEntity(dto);
@@ -52,7 +52,7 @@ public class ContatoService {
         String termoLimpo = termo.trim();
 
         if (termoLimpo.length() < 3) {
-            throw new BusinessException(ContatoMessages.TERMO_BUSCA_CURTO);
+            throw new BusinessException(BusinessMessages.TERMO_BUSCA_CURTO);
         }
 
         return contatoRepository.buscaGlobal(termoLimpo)
@@ -65,13 +65,13 @@ public class ContatoService {
     public ContatoResponseDTO buscarId(Long id) {
         return contatoRepository.findById(id)
                 .map(contatoMapper::toResponseDTO)
-                .orElseThrow(() -> new ObjectNotFoundException(ContatoMessages.CONTATO_NAO_ENCONTRADO));
+                .orElseThrow(() -> new ObjectNotFoundException(BusinessMessages.CONTATO_NAO_ENCONTRADO));
     }
 
     @Transactional
     public ContatoResponseDTO atualizar(Long id, ContatoRequestDTO dto) {
         Contato contato = contatoRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException(ContatoMessages.CONTATO_NAO_ENCONTRADO));
+                .orElseThrow(() -> new ObjectNotFoundException(BusinessMessages.CONTATO_NAO_ENCONTRADO));
         contatoMapper.atualizarContato(dto, contato);
         Contato contatoAtualizado = contatoRepository.save(contato);
         return contatoMapper.toResponseDTO(contatoAtualizado);
@@ -80,7 +80,7 @@ public class ContatoService {
     @Transactional
     public void excluir(Long id) {
         if (!contatoRepository.existsById(id)) {
-            throw new ObjectNotFoundException(ContatoMessages.CONTATO_NAO_ENCONTRADO);
+            throw new ObjectNotFoundException(BusinessMessages.CONTATO_NAO_ENCONTRADO);
         }
         contatoRepository.deleteById(id);
     }
