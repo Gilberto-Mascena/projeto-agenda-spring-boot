@@ -62,16 +62,14 @@ public class ContatoService {
     }
 
     @Transactional(readOnly = true)
-    public ContatoResponseDTO buscarId(Long id) {
-        return contatoRepository.findById(id)
-                .map(contatoMapper::toResponseDTO)
-                .orElseThrow(() -> new ObjectNotFoundException(BusinessMessages.CONTATO_NAO_ENCONTRADO));
+    public ContatoResponseDTO buscarPorId(Long id) {
+        Contato contato = buscarEntidadePorId(id);
+        return contatoMapper.toResponseDTO(contato);
     }
 
     @Transactional
     public ContatoResponseDTO atualizar(Long id, ContatoRequestDTO dto) {
-        Contato contato = contatoRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException(BusinessMessages.CONTATO_NAO_ENCONTRADO));
+        Contato contato = buscarEntidadePorId(id);
         contatoMapper.atualizarContato(dto, contato);
         Contato contatoAtualizado = contatoRepository.save(contato);
         return contatoMapper.toResponseDTO(contatoAtualizado);
@@ -79,9 +77,12 @@ public class ContatoService {
 
     @Transactional
     public void excluir(Long id) {
-        if (!contatoRepository.existsById(id)) {
-            throw new ObjectNotFoundException(BusinessMessages.CONTATO_NAO_ENCONTRADO);
-        }
+        buscarEntidadePorId(id);
         contatoRepository.deleteById(id);
+    }
+
+    private Contato buscarEntidadePorId(Long id) {
+        return contatoRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException(BusinessMessages.CONTATO_NAO_ENCONTRADO));
     }
 }

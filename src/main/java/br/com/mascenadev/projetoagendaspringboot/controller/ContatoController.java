@@ -61,7 +61,7 @@ public class ContatoController {
             @ApiResponse(responseCode = "404", description = "Contato não encontrado")
     })
     public ResponseEntity<ContatoResponseDTO> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(contatoService.buscarId(id));
+        return ResponseEntity.ok(contatoService.buscarPorId(id));
     }
 
     @PutMapping("/{id}")
