@@ -8,11 +8,10 @@ import br.com.mascenadev.projetoagendaspringboot.exception.ObjectNotFoundExcepti
 import br.com.mascenadev.projetoagendaspringboot.mapper.ContatoMapper;
 import br.com.mascenadev.projetoagendaspringboot.message.BusinessMessages;
 import br.com.mascenadev.projetoagendaspringboot.repository.ContatoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Collections;
-import java.util.List;
 
 @Service
 public class ContatoService {
@@ -37,16 +36,21 @@ public class ContatoService {
     }
 
     @Transactional(readOnly = true)
-    public List<ContatoResponseDTO> listarTodos() {
-        return contatoRepository.findAllByOrderByNomeAsc().stream()
-                .map(contatoMapper::toResponseDTO)
-                .toList();
+    public Page<ContatoResponseDTO> listarTodos(Pageable paginacao) {
+        return contatoRepository.findAll(paginacao)
+                .map(contatoMapper::toResponseDTO);
     }
 
     @Transactional(readOnly = true)
-    public List<ContatoResponseDTO> buscaGlobal(String termo) {
+    public ContatoResponseDTO buscarPorId(Long id) {
+        Contato contato = buscarEntidadePorId(id);
+        return contatoMapper.toResponseDTO(contato);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ContatoResponseDTO> buscaGlobal(String termo, Pageable paginacao) {
         if (termo == null || termo.isBlank()) {
-            return Collections.emptyList();
+            return Page.empty(paginacao);
         }
 
         String termoLimpo = termo.trim();
@@ -55,16 +59,8 @@ public class ContatoService {
             throw new BusinessException(BusinessMessages.TERMO_BUSCA_CURTO);
         }
 
-        return contatoRepository.buscaGlobal(termoLimpo)
-                .stream()
-                .map(contatoMapper::toResponseDTO)
-                .toList();
-    }
-
-    @Transactional(readOnly = true)
-    public ContatoResponseDTO buscarPorId(Long id) {
-        Contato contato = buscarEntidadePorId(id);
-        return contatoMapper.toResponseDTO(contato);
+        return contatoRepository.buscaGlobal(termoLimpo, paginacao)
+                .map(contatoMapper::toResponseDTO);
     }
 
     @Transactional

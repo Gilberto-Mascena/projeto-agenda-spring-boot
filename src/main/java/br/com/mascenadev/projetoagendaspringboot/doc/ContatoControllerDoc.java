@@ -7,12 +7,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Tag(
         name = "Contato",
@@ -43,21 +44,7 @@ public interface ContatoControllerDoc {
                     responseCode = "200",
                     description = "Lista de contatos retornada com sucesso"),
     })
-    ResponseEntity<List<ContatoResponseDTO>> listarTodos();
-
-    @Operation(
-            summary = "Busca global de contatos",
-            description = "Realiza uma busca global por contatos com base em um termo fornecido (nome, email ou telefone).")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Busca realizada com sucesso (pode retornar uma lista vazia)"),
-            @ApiResponse(
-                    responseCode = "422",
-                    description = "Regra de negócio violada (termo de busca com menos de 3 caracteres)"),
-
-    })
-    ResponseEntity<List<ContatoResponseDTO>> buscaGlobal(@RequestParam String termo);
+    ResponseEntity<Page<ContatoResponseDTO>> listarTodos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao);
 
     @Operation(
             summary = "Buscar contato por ID",
@@ -71,6 +58,20 @@ public interface ContatoControllerDoc {
                     description = "Contato não encontrado")
     })
     ResponseEntity<ContatoResponseDTO> buscarPorId(@PathVariable Long id);
+
+    @Operation(
+            summary = "Busca global de contatos",
+            description = "Realiza uma busca global por contatos com base em um termo fornecido (nome, email ou telefone).")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Busca realizada com sucesso (pode retornar uma lista vazia)"),
+            @ApiResponse(
+                    responseCode = "422",
+                    description = "Regra de negócio violada (termo de busca com menos de 3 caracteres)"),
+
+    })
+    ResponseEntity<Page<ContatoResponseDTO>> buscaGlobal(@RequestParam(required = false) String termo, @PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao);
 
     @Operation(
             summary = "Atualizar contato",

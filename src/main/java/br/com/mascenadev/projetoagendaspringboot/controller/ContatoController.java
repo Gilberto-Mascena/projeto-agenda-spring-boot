@@ -5,12 +5,14 @@ import br.com.mascenadev.projetoagendaspringboot.dto.ContatoRequestDTO;
 import br.com.mascenadev.projetoagendaspringboot.dto.ContatoResponseDTO;
 import br.com.mascenadev.projetoagendaspringboot.service.ContatoService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/contatos")
@@ -36,20 +38,20 @@ public class ContatoController implements ContatoControllerDoc {
 
     @Override
     @GetMapping
-    public ResponseEntity<List<ContatoResponseDTO>> listarTodos() {
-        return ResponseEntity.ok().body(contatoService.listarTodos());
-    }
-
-    @Override
-    @GetMapping("/buscar")
-    public ResponseEntity<List<ContatoResponseDTO>> buscaGlobal(@RequestParam String termo) {
-        return ResponseEntity.ok(contatoService.buscaGlobal(termo));
+    public ResponseEntity<Page<ContatoResponseDTO>> listarTodos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        return ResponseEntity.ok(contatoService.listarTodos(paginacao));
     }
 
     @Override
     @GetMapping("/{id}")
     public ResponseEntity<ContatoResponseDTO> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(contatoService.buscarPorId(id));
+    }
+
+    @Override
+    @GetMapping("/buscar")
+    public ResponseEntity<Page<ContatoResponseDTO>> buscaGlobal(@RequestParam(required = false) String termo, @PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        return ResponseEntity.ok(contatoService.buscaGlobal(termo, paginacao));
     }
 
     @Override
