@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -23,6 +25,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException ex, HttpServletRequest request) {
+
+        log.warn("Regra de negócio violada na rota [{}]: Código: {}, Mensagem: {}",
+                request.getRequestURI(),
+                ex.getCodigo(),
+                ex.getMessage()
+        );
+
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
         ErrorResponse err = montarErro(
                 ex.getCodigo(),
@@ -34,6 +43,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleContatoNaoEncontrado(ObjectNotFoundException ex, HttpServletRequest request) {
+
         HttpStatus status = HttpStatus.NOT_FOUND;
         ErrorResponse err = montarErro(
                 ex.getCodigo(),
@@ -45,9 +55,24 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidationErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest request) {
-        List<ValidationErrorDetails> erros = ex.getBindingResult().getFieldErrors()
+
+        log.warn("Falha de validação de campos na rota [{}]. Quantidade de erros: {}",
+                request.getRequestURI(),
+                ex.getBindingResult()
+                        .getFieldErrorCount()
+        );
+
+        List<ValidationErrorDetails> erros = ex.getBindingResult()
+                .getFieldErrors()
                 .stream()
-                .map(fieldError -> new ValidationErrorDetails(fieldError.getField(), fieldError.getDefaultMessage()))
+                .collect(Collectors.toMap(
+                        FieldError::getField,
+                        error -> error.getDefaultMessage() != null ? error.getDefaultMessage() : "Campo inválido",
+                        (existingMessage, newMessage) -> existingMessage
+                ))
+                .entrySet()
+                .stream()
+                .map(entry -> new ValidationErrorDetails(entry.getKey(), entry.getValue()))
                 .toList();
 
         HttpStatus status = HttpStatus.BAD_REQUEST;
@@ -60,6 +85,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpServletRequest request) {
+
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ErrorResponse err = montarErro(
                 GlobalMessages.DADOS_INVALIDOS,
@@ -70,6 +96,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpServletRequest request) {
+
         HttpStatus status = HttpStatus.METHOD_NOT_ALLOWED;
         ErrorResponse err = montarErro(
                 GlobalMessages.METODO_INVALIDO,
@@ -80,6 +107,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex, HttpServletRequest request) {
+
         log.error("Erro inesperado: ", ex);
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         ErrorResponse err = montarErro(
@@ -90,6 +118,7 @@ public class GlobalExceptionHandler {
     }
 
     private ErrorResponse montarErro(MessageBase messageBase, HttpStatus status, HttpServletRequest request) {
+
         return new ErrorResponse(
                 Instant.now(),
                 status.value(),
@@ -101,6 +130,7 @@ public class GlobalExceptionHandler {
     }
 
     private ErrorResponse montarErro(String codigo, String mensagem, HttpStatus status, HttpServletRequest request) {
+
         return new ErrorResponse(
                 Instant.now(),
                 status.value(),
@@ -113,11 +143,12 @@ public class GlobalExceptionHandler {
     }
 
     private ValidationErrorResponse montarErroValidacao(HttpStatus status, HttpServletRequest request, List<ValidationErrorDetails> erros) {
+
         return new ValidationErrorResponse(
                 Instant.now(),
                 status.value(),
                 GlobalMessages.VALIDACAO_FALHA.getCodigo(),
-                "Erro na Requisição",
+                "Erro de Validação",
                 GlobalMessages.VALIDACAO_FALHA.getMensagem(),
                 request.getRequestURI(),
                 erros
